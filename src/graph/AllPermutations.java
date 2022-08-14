@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public class AllPermutations {
-
-
     /**
      * Give a string with no duplicate characters, return a list with all permutations of characters
      * <p>

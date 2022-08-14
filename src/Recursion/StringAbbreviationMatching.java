@@ -43,29 +43,40 @@ public class StringAbbreviationMatching {
             return false;
         }
 
-        char ch = pattern.charAt(indexPattern);
+//        char ch = pattern.charAt(indexPattern);
+//
+//
+//        //if the current character is not a digit
+//        if (ch < '0' || ch > '9') {
+//            if (input.charAt(indexInput) == pattern.charAt(indexPattern)) {
+//               return dfs(input, pattern, indexInput + 1, indexPattern + 1);
+//            } else {
+//                return false;
+//            }
+//        } else {
+//            StringBuilder sb = new StringBuilder();
+//            while (ch >= '0' && ch <= '9') {
+//                indexPattern++;
+//                sb.append(ch);
+//                if (indexPattern >= pattern.length()) {
+//                    break;
+//                }
+//                ch = pattern.charAt(indexPattern);
+//            }
+//            int count = convertStringToNumber(sb);
+//            return dfs(input, pattern, indexInput + count, indexPattern);
+//        }
 
-
-        //if the current character is not a digit
-        if (ch < '0' || ch > '9') {
-            if (input.charAt(indexInput) == pattern.charAt(indexPattern)) {
-               return dfs(input, pattern, indexInput + 1, indexPattern + 1);
-            } else {
-                return false;
-            }
-        } else {
-            StringBuilder sb = new StringBuilder();
-            while (ch >= '0' && ch <= '9') {
-                indexPattern++;
-                sb.append(ch);
-                if (indexPattern >= pattern.length()) {
-                    break;
-                }
-                ch = pattern.charAt(indexPattern);
-            }
-            int count = convertStringToNumber(sb);
-            return dfs(input, pattern, indexInput + count, indexPattern);
+        if (input.charAt(indexInput) == pattern.charAt(indexPattern)) {
+            return dfs(input, pattern, indexInput + 1, indexPattern + 1);
+        } else if (!isNumber(pattern.charAt(indexPattern))) {
+            return false;
         }
+        int count = 0;
+        while (indexPattern < pattern.length() && isNumber(pattern.charAt(indexPattern))) {
+            count = 10 * count + pattern.charAt(indexPattern++) - '0';
+        }
+        return dfs(input, pattern, indexInput + count, indexPattern);
     }
 
     private int convertStringToNumber(StringBuilder sb) {
@@ -74,5 +85,12 @@ public class StringAbbreviationMatching {
             count = 10 * count + sb.charAt(i) - '0';
         }
         return count;
+    }
+
+    private boolean isNumber(char ch){
+        if (ch >= '0' && ch <= '9') {
+            return true;
+        }
+        return false;
     }
 }

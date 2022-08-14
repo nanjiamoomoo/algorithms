@@ -77,5 +77,85 @@ public class SpiralOrderTraversal {
         recursion(offset + 1, matrix, res, size);
     }
 
+    /**
+     * Traverse an M * N 2D array in spiral order clock-wise starting from the top left corner. Return the list of traversal sequence.
+     * Assumption: The 2D array is not null and has size of M * N where M, N >= 0
+     * @param matrix
+     * @return the traversal sequence
+     */
+    public List<Integer> spiralOrderTraversalII(int[][] matrix) {
+
+        /*
+               offset
+                 o x x x x
+                 x o x x x
+                 x x o x x
+                 x x x x x
+                 x x x x x
+                 x x x x x
+                 //use recursion to solve the problem
+                 define the offset as the distance between start point on each level to the left edge
+
+               top left corner coordinate (offset, offset)
+               top right corner coordinate (offset, col - 1 - offset)
+               bottom right corner coordinate (row - 1 - offset, col - 1 - offset)
+               bottom left corner coordinate (row - 1 - offset, offset)
+         */
+
+        List<Integer> res = new ArrayList<>();
+        recursionII(matrix, res, 0);
+        return res;
+    }
+
+    private void recursionII(int[][] matrix, List<Integer> res, int offset) {
+        int row = matrix.length;
+        int col = matrix[0].length;
+
+        //base case
+        int smaller = Math.min(row, col);
+
+        if (offset == smaller / 2) {
+            if (smaller % 2 == 0) {
+                return;
+            } else {
+                if (col >= row) {
+                    for (int j = offset; j <= col - 1 - offset; j++) {
+                        res.add(matrix[offset][j]);
+                    }
+                    return;
+                } else {
+                    for (int i = offset; i <= row - 1 - offset; i++) {
+                        res.add(matrix[i][col - 1 - offset]);
+                    }
+                    return;
+                }
+            }
+
+        }
+
+        //top
+        for (int j = offset; j < col - 1 - offset; j++) {
+            res.add(matrix[offset][j]);
+        }
+        //right
+        for (int i = offset; i < row - 1 - offset; i++) {
+            res.add(matrix[i][col - 1 - offset]);
+        }
+        //bottom
+        for (int j = col - 1 - offset; j > offset; j--) {
+            res.add(matrix[row - 1 - offset][j]);
+        }
+        //left
+        for (int i = row - 1 - offset; i > offset; i--) {
+            res.add(matrix[i][offset]);
+        }
+        recursionII(matrix, res, offset + 1);
+    }
+
+    public static void main(String[] args) {
+        int[][] matrix = {{1, 2, 3, 4}};
+        SpiralOrderTraversal spiralOrderTraversal = new SpiralOrderTraversal();
+        System.out.println(spiralOrderTraversal.spiralOrderTraversalII(matrix));
+    }
 
 }
