@@ -1,6 +1,4 @@
-package DynamicProgramming;
-
-import java.util.function.Predicate;
+package dynamic_programming;
 
 public class LongestAscendingSubarray {
     /**

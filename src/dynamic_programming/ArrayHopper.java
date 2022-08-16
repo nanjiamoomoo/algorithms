@@ -1,4 +1,4 @@
-package DynamicProgramming;
+package dynamic_programming;
 
 /**
  * Array Hopper(Jump) related problems
