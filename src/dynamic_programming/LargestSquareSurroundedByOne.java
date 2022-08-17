@@ -11,15 +11,10 @@ public class LargestSquareSurroundedByOne {
      * Examples
      * <p>
      * {{1, 0, 1, 1, 1},
-     * <p>
      * {1, 1, 1, 1, 1},
-     * <p>
      * {1, 1, 0, 1, 0},
-     * <p>
      * {1, 1, 1, 1, 1},
-     * <p>
      * {1, 1, 1, 0, 0}}
-     * <p>
      * The largest square surrounded by 1s has length of 3.
      *
      * @param matrix
