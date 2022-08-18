@@ -61,11 +61,11 @@ public class AllPermutations {
         //all permutations can be solved with dfs
 
         /*
-                                        aba
-           level 0:         a|ba             b|aa     for 0 position, we need a set to control the duplication
-           level 1:   ab|a      aa|b         ba|a     for 1 position, we also need a set to control the duplication
-           level 2:   aba|      aab|         baa      for 2 position, only one option left
-           level 3: return
+           level 0:                     aba           for 0 position, we determine which character to put on the index 0 position. We also need a set to control the duplication
+           level 1:         a|ba             b|aa     for 1 position, we determine which character to put on the index 1 position. We also need a set to control the duplication
+           level 2:   ab|a      aa|b         ba|a     for 2 position, we determine which character to put on the index 2 position. We also need a set to control the duplication
+           level 3:   aba|      aab|         baa      for 3 position, we return
+                         return
 
          */
         List<String> res = new ArrayList<>();

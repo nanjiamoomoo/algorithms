@@ -28,17 +28,16 @@ public class KthClosestPointToOrigin {
     public List<Integer> kthClosestPointToOrigin(int[] a, int[] b, int[] c, int k) {
 
         /*
+            We will maintain a minHeap to help us to get the next closest element to origin quickly
             since a, b, c are in ascending order
-            so the first closest element to <0, 0, 0> will be at <a[0], b[0], c[0]>
             let's assume x represents the index of element in a[]
                          y represents the index of element in b[]
                          z represents the index of element in c[]
             if <a[x], b[y], c[z]> is the currently the closest element to origin,
-            the next closest can only be one of the following three <a[x + 1], b[y], c[z]>, <a[x], b[y + 1], c[z]>, <a[x], b[y], c[z + 1]>
+                   we will need to generate all its neighbors and add them in the minHeap. Why?
+                   because only the directly connected neighbors can potentially be selected in future as the closest element
 
-            There might be also duplications, so we need to HashSet to deduplication
-
-            we use a minHeap to find the next closest element
+            There might be also duplications, so we need to use a HashSet for deduplication
 
             TC: 4klog(2k)
 
