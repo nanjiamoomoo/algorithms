@@ -1,4 +1,4 @@
-package graph;
+package graph.bfs;
 
 import java.util.*;
 
@@ -6,23 +6,14 @@ public class WordLadder {
 
     /**
      * Given a begin word, an end word and a dictionary, find the least number transformations from begin word to end word, and return the length of the transformation sequence. Return 0 if there is no such transformations.
-     * <p>
      * In each transformation, you can only change one letter, and the word should still in the dictionary after each transformation.
-     * <p>
      * Assumptions
-     * <p>
      * 1. All words have the same length.
-     * <p>
      * 2. All words contain only lowercase alphabetic characters.
-     * <p>
      * 3. There is no duplicates in the word list.
-     * <p>
      * 4.The beginWord and endWord are non-empty and are not the same.
-     * <p>
      * Example: start = "git", end = "hot", dictionary = {"git","hit","hog","hot"}
-     * <p>
      * Output: 3
-     * <p>
      * Explanation: git -> hit -> hot
      *
      * @param begin
@@ -50,9 +41,10 @@ public class WordLadder {
         }
 
         Queue<String> queue = new ArrayDeque<>();
-        Set<String> visited = new HashSet<>();
+//        Set<String> visited = new HashSet<>();
         queue.offer(begin);
-        visited.add(begin);
+        dict.remove(begin);
+//        visited.add(begin);
         int step = 1;
         while (!queue.isEmpty()) {
             int size = queue.size();
@@ -60,12 +52,13 @@ public class WordLadder {
                 String curr = queue.poll();
                 List<String> neighbors = findNeighbors(curr, dict);
                 for (String nei : neighbors) {
-                    if (visited.add(nei)) {
-                        if (nei.equals(end)) {
-                            return step + 1;
-                        }
-                        queue.offer(nei);
+//                    if (visited.add(nei)) {
+                    dict.remove(nei);
+                    if (nei.equals(end)) {
+                        return step + 1;
                     }
+                    queue.offer(nei);
+//                    }
                 }
             }
             step++;
@@ -95,21 +88,13 @@ public class WordLadder {
 
     /**
      * Given a begin word, an end word and a dictionary, find the least number transformations from begin word to end word, and return the transformation sequences. Return empty list if there is no such transformations.
-     * <p>
      * In each transformation, you can only change one letter, and the word should still in the dictionary after each transformation.
-     * <p>
      * Assumptions
-     * <p>
      * 1. All words have the same length.
-     * <p>
      * 2. All words contain only lowercase alphabetic characters.
-     * <p>
      * 3. There is no duplicates in the word list.
-     * <p>
      * 4.The beginWord and endWord are non-empty and are not the same.
-     * <p>
      * Example: start = "git", end = "hot", dictionary = {"git","hit","hog","hot","got"}
-     * <p>
      * Output: [["git","hit","hot"], ["git","got","hot"]]
      *
      * @param begin
@@ -151,6 +136,8 @@ public class WordLadder {
         dict.remove(begin);
         while (!queue.isEmpty()) {
             int size = queue.size();
+            //add all the nodes to be generated in this layer in a removable list
+            //once we finish traverse current layer, we can remove them all from the dictionary so that we won't visit them again to avoid endless cycle.
             List<String> toRemoved = new ArrayList<>();
             for (int i = 0; i < size; i++) {
                 List<String> currList = queue.poll();
@@ -178,10 +165,10 @@ public class WordLadder {
     }
 
     public static void main(String[] args) {
-        String start = "git";
-        String end = "hot";
-        List<String> dict = Arrays.asList("git", "hit", "hog", "hot", "got");
+        String start = "ac";
+        String end = "ca";
+        List<String> dict = Arrays.asList("ac", "dd", "ca", "da", "db", "cc", "ab");
         WordLadder w = new WordLadder();
-        System.out.println(w.wordLadderII(start, end, dict));
+        System.out.println(w.wordLadderI(start, end, dict));
     }
 }

@@ -1,4 +1,4 @@
-package graph;
+package graph.dfs;
 
 /**
  * Given two strings of alphanumeric characters, determine the minimum number of Replace, Delete, and Insert operations needed to transform one string into the other.

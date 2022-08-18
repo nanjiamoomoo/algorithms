@@ -1,4 +1,4 @@
-package graph;
+package graph.dijkstra_algorithm;
 
 
 import java.util.*;
@@ -8,7 +8,6 @@ public class KthSmallestWith357 {
     /**
      * Find the Kth smallest number s such that s = 3 ^ x * 5 ^ y * 7 ^ z, x > 0 and y > 0 and z > 0, x, y, z are all integers.
      * Assumption: k >= 1
-     * <p>
      * the smallest is 3 * 5 * 7 = 105
      * the 2nd smallest is 3 ^ 2 * 5 * 7 = 315
      * the 3rd smallest is 3 * 5 ^ 2 * 7 = 525

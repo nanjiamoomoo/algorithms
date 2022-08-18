@@ -1,4 +1,4 @@
-package graph;
+package graph.bfs;
 
 import java.util.*;
 
