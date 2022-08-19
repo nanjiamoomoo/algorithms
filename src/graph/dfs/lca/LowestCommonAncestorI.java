@@ -1,19 +1,6 @@
-package Recursion;
+package graph.dfs.lca;
 
-class TreeNode {
-    public int key;
-    public TreeNode left;
-    public TreeNode right;
-    public TreeNode(int key) {
-        this.key = key;
-    }
-}
-
-/**
- * Includes all LCA related questions
- */
-public class LowestCommonAncestor {
-
+public class LowestCommonAncestorI {
     /**
      * Given two nodes in a binary tree, find their lowest common ancestor.
      *
@@ -29,6 +16,15 @@ public class LowestCommonAncestor {
 
         /*
 
+              There are two different relationships
+              1. one is under the other one
+                    we search the entire tree, as long as we find node, we return it. It will be the lowest common Ancestor
+              2. both of them belong to different branches.
+                    we search the entire tree, as long as we find the node, we return it.
+                        2.1 if only one branch returns a valid node, the other branch returns null. we keep returning the same node
+                        2.2 if both branches returns valid node, then we return current root, since it will be he LCA
+
+               Overall, we can see the case 1 is actually the same as 2.1
                           x
                      x          x
                  x     o     x     x
@@ -51,8 +47,8 @@ public class LowestCommonAncestor {
             return root;
         }
         return left == null? right : left;
+        //TC: O(n)
+        //SC: O(h)
     }
-
-
 
 }
