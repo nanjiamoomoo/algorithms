@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FactorCombinations {
-
     /**
      * Given an integer number, return all possible combinations of the factors that can multiply to the target number.
      * Example:
@@ -82,8 +81,6 @@ public class FactorCombinations {
         }
         //remove all the added factors
         list.subList(size, list.size()).clear();
-
-
     }
 
     /**
