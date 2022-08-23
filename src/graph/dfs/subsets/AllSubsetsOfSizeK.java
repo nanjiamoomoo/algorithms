@@ -1,4 +1,4 @@
-package graph.dfs;
+package graph.dfs.subsets;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -45,20 +45,37 @@ public class AllSubsetsOfSizeK {
     }
 
     private void dfs(StringBuilder sb, String set, int index, List<String> res, int k) {
+//        if (sb.length() == k) {
+//            res.add(sb.toString());
+//            return;
+//        }
+//
+//        //add
+//        sb.append(set.charAt(index));
+//        dfs(sb, set, index + 1, res, k);
+//        sb.deleteCharAt(sb.length() - 1);
+//
+//        //not add
+//        if (set.length() - index != k - sb.length()) {
+//            dfs(sb, set, index + 1, res, k);
+//        }
+
+//        Better way is that we just find the all the subSets
+//        The base case is
         if (sb.length() == k) {
             res.add(sb.toString());
             return;
         }
-
+        if (index == set.length()) {
+            return;
+        }
         //add
         sb.append(set.charAt(index));
         dfs(sb, set, index + 1, res, k);
         sb.deleteCharAt(sb.length() - 1);
 
         //not add
-        if (set.length() - index != k - sb.length()) {
-            dfs(sb, set, index + 1, res, k);
-        }
+        dfs(sb, set, index + 1, res, k);
     }
 
     /*
@@ -71,5 +88,12 @@ public class AllSubsetsOfSizeK {
         if (index == set.length()) {
           return;
         }
+        //add
+         sb.append(set.charAt(index));
+        dfs(sb, set, index + 1, res, k);
+        sb.deleteCharAt(sb.length() - 1);
+
+        //not add
+        dfs(sb, set, index + 1, res, k);
      */
 }

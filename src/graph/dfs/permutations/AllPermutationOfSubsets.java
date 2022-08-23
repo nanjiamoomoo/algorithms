@@ -1,4 +1,4 @@
-package graph.dfs;
+package graph.dfs.permutations;
 
 import java.util.ArrayList;
 import java.util.List;
