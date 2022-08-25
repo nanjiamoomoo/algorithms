@@ -2,9 +2,52 @@ package graph.dfs.subsets;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class AllSubsets {
+
+    /**
+     * Given a set of characters represented by a String, return a list containing all subsets of the characters.
+     * Assumption: There are no duplicate characters in the original set.
+     * Examples:
+     * Set = "abc", all the subsets are [“”, “a”, “ab”, “abc”, “ac”, “b”, “bc”, “c”]
+     * Set = "", all the subsets are [""]
+     * Set = null, all the subsets are []
+     * @param set
+     * @return
+     */
+    public List<String> subSetI(String set) {
+        /*
+                           ""
+              a          a     ""
+              b        ab a   b ""
+
+         */
+        List<String> res =new ArrayList<>();
+        if (set == null) {
+            return res;
+        }
+        StringBuilder sb = new StringBuilder();
+        helper(res, sb, 0, set);
+        return res;
+    }
+
+    private void helper(List<String> res, StringBuilder sb, int index, String set) {
+        if (index == set.length()) {
+            res.add(sb.toString());
+            return;
+        }
+
+        //add
+        helper(res, sb.append(set.charAt(index)), index + 1, set);
+        sb.deleteCharAt(sb.length() - 1);
+
+        //not add
+        helper(res, sb, index + 1, set);
+    }
+
+
 
     /**
      * Given a set of characters represented by a String, return a list containing all subsets of the characters. Notice that each subset returned will be sorted to remove the sequence.
