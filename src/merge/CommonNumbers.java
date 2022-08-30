@@ -5,6 +5,45 @@ import java.util.*;
 public class CommonNumbers {
 
     /**
+     * Find all numbers that appear in both of two sorted arrays (the two arrays are all sorted in ascending order).
+     * Assumptions
+     * In each of the two sorted arrays, there could be duplicate numbers.
+     * Both two arrays are not null.
+     * Examples:
+     * A = {1, 1, 2, 2, 3}, B = {1, 1, 2, 5, 6}, common numbers are [1, 1, 2]
+     * @param one
+     * @param two
+     * @return
+     */
+    public List<Integer> commonNumbers(int[] one, int[] two) {
+        /*
+                1   1   2  2  3
+                i
+                1   1   2  5  6
+                j
+
+                we can use two pointers and always move the smaller one
+                if the value pointed by the two indices are the same, then we add the value in the result and move both pointers.
+
+         */
+        List<Integer> res = new ArrayList<>();
+        int i = 0;
+        int j = 0;
+        while (i < one.length && j < two.length) {
+            if (one[i] == two[j]) {
+                res.add(one[i]);
+                i++;
+                j++;
+            } else if (one[i] < two[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+        return res;
+    }
+
+    /**
      * Find all numbers that appear in both of the two unsorted arrays, return the common numbers in increasing order.
      * Assumptions:
      * 1. Both arrays are not null.
