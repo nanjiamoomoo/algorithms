@@ -1,3 +1,5 @@
+package binarysearch;
+
 public class KthSmallestInTwoSortedArrays {
 
     /**
