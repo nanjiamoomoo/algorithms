@@ -1,4 +1,4 @@
-package string;
+package stringandarray;
 
 /**
  * substring related problems

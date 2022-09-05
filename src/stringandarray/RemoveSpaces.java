@@ -1,4 +1,4 @@
-package string;
+package stringandarray;
 
 /**
  * Given a string, remove all leading/trailing/duplicated empty spaces.

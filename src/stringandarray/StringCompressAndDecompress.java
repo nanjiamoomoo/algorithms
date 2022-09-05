@@ -1,4 +1,4 @@
-package string;
+package stringandarray;
 
 /**
  * String compress and decompress related problems

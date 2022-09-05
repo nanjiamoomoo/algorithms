@@ -1,4 +1,4 @@
-package string;
+package stringandarray;
 
 /**
  * Replace all pattern in a string with a different string
