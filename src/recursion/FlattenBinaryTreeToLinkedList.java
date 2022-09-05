@@ -1,4 +1,4 @@
-package graph.dfs;
+package recursion;
 
 import recursion.lca.TreeNode;
 

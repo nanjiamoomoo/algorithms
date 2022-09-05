@@ -1,6 +1,6 @@
 package graph.bfs;
 
-import Recursion.lca.TreeNode;
+import recursion.lca.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

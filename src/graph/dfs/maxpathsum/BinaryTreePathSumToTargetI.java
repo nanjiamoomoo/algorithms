@@ -1,6 +1,6 @@
 package graph.dfs.maxpathsum;
 
-import Recursion.lca.TreeNode;
+import recursion.lca.TreeNode;
 
 public class BinaryTreePathSumToTargetI {
 

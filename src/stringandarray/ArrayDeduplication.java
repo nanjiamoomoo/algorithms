@@ -166,4 +166,38 @@ public class ArrayDeduplication {
         }
         return Arrays.copyOf(array, slow);
     }
+
+    /**
+     * Given an unsorted integer array, remove duplicate elements. For each group of elements with the same value do not keep any of them. Do this in-place, using the left side of the original array and maintain the relative order of the elements of the array. Return the array after deduplication.
+     * Assumption: The given array is not null
+     * Examples: {1, 2, 2, 3, 3, 3} → {1}
+     * @param array
+     * @return
+     */
+    public int[] arrayDeduplicationV(int[] array) {
+        /*
+            3 pointers: 2 pointers + 1 inner point
+            slow: all the elements to the left of slow are processed element that shall be kept
+            fast: all the elements to the right of are elements to be processed
+            begin: the first occurrence of the elements in the current section
+
+             1  3   2   2   3    3   3    -> {1, 3}
+                    s
+                                        f
+                          begin
+
+         */
+        int slow = 0;
+        int fast = 0;
+        while (fast < array.length) {
+            int begin = fast;
+            while (fast < array.length && array[fast] == array[begin]) {
+                fast++;
+            }
+            if (fast - begin == 1) {
+                array[slow++] = array[begin];
+            }
+        }
+        return Arrays.copyOf(array, slow);
+    }
 }
