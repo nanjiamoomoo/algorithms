@@ -1,5 +1,17 @@
+package dynamic_programming;
+
 import java.util.Arrays;
 import java.util.Comparator;
+
+class Point {
+    public int x;
+    public int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+}
 
 public class LargestSetOfPointsWithPositiveSlope {
 
@@ -8,9 +20,10 @@ public class LargestSetOfPointsWithPositiveSlope {
      * Assumption:
      * The given array is not null
      * Note: if there does not even exist 2 points can form a line with positive slope, should return 0.
-     *
+     * <p>
      * Examples:
      * <0, 0>, <1, 1>, <2, 3>, <3, 3>, the maximum set of points are {<0, 0>, <1, 1>, <2, 3>}, the size is 3.
+     *
      * @param points
      * @return
      */
@@ -54,7 +67,7 @@ public class LargestSetOfPointsWithPositiveSlope {
         if (points.length < 2) {
             return 0;
         }
-        Arrays.sort(points, new Comparator<Point>(){
+        Arrays.sort(points, new Comparator<Point>() {
             public int compare(Point p1, Point p2) {
                 return p1.x - p2.x;
             }
@@ -62,7 +75,7 @@ public class LargestSetOfPointsWithPositiveSlope {
         //lAS[i]: Longest Ascending Sequence ending at i with respect to y
         int[] lAS = new int[points.length];
         lAS[0] = 1;
-        int globalMax= 1;
+        int globalMax = 1;
         for (int i = 1; i < lAS.length; i++) {
             int curMax = 0;
             for (int j = 0; j < i; j++) {
