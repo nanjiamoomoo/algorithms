@@ -5,7 +5,7 @@ import graph.dfs.lca.TreeNode;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class ClosestNumberInBST {
+public class ClosestNumberInBSTII {
 
     /**
      * In a binary search tree, find k nodes containing the closest numbers to the given target number. return them in sorted array
