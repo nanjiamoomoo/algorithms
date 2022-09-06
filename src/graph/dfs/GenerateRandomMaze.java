@@ -1,3 +1,5 @@
+package graph.dfs;
+
 import java.util.Random;
 
 public class GenerateRandomMaze {
