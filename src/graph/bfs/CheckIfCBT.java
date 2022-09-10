@@ -13,6 +13,7 @@ public class CheckIfCBT {
     /**
      * Check if a given binary tree is completed. A complete binary tree is one in which every level of the binary tree is completely filled except possibly the last level. Furthermore, all nodes are as far left as possible.
      * Assumption: What if the binary tree is null? Return true in this case.
+     *
      * @param root
      * @return
      */
@@ -75,42 +76,37 @@ public class CheckIfCBT {
 
 
 
+
+
         //method2: check at generation
-//        Queue<TreeNode> queue = new LinkedList<>();
-//        queue.offer(root);
-//        boolean flag = false;
-//        while (!queue.isEmpty()) {
-//            TreeNode curr = queue.poll();
-//            //if current is not null, we can generate its child
-//            if (curr != null) {
-//                if (!flag) {
-//                    //if we haven't met a null, and current left is null, we mark flag as true
-//                    if (curr.left == null) {
-//                        flag = true;
-//                    }
-//                    //after check left we have to check right
-//                    if (!flag) {
-//                        if (curr.right == null) {
-//                            flag = true;
-//                        }
-//                    } else {
-//                        if (curr.right != null) {
-//                            return false;
-//                        }
-//                    }
-//
-//                } else {
-//                    if (curr.left != null || curr.right != null) {
-//                        return false;
-//                    }
-//                }
-//                //not matter left child is null or not null, we generate it in the queue
-//                queue.offer(curr.left);
-//                //not matter right child is null or not null, we generate it in the queue
-//                queue.offer(curr.right);
+//        public boolean isCompleted (TreeNode root){
+//            // Write your solution here
+//            if (root == null) {
+//                return true;
 //            }
-//            //if current is null, we ignore since we don't generate any child
+//            Queue<TreeNode> q = new ArrayDeque<>();
+//            q.offer(root);
+//            boolean flag = false; //if there is null showed up
+//            while (!q.isEmpty()) {
+//                TreeNode cur = q.poll();
+//                if (cur.left == null) {
+//                    flag = true;
+//                } else if (flag) {
+//                    return false;
+//                } else {
+//                    q.offer(cur.left);
+//                }
+//                if (cur.right == null) {
+//                    flag = true;
+//                } else if (flag) {
+//                    return false;
+//                } else {
+//                    q.offer(cur.right);
+//                }
+//
+//            }
+//            return true;
 //        }
-//        return true;
+
     }
 }
