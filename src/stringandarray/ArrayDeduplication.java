@@ -200,4 +200,35 @@ public class ArrayDeduplication {
         }
         return Arrays.copyOf(array, slow);
     }
+
+    /**
+     * Given an integer array(not guaranteed to be sorted), remove adjacent repeated elements. For each group of elements with the same value keep at most two of them. Do this in-place, using the left side of the original array and maintain the relative order of the elements of the array. Return the final array.
+     * Assumption: The given array is not null
+     * Examples:
+     * {1, 2, 2, 3, 3, 3} --> {1, 2, 2, 3, 3}
+     * {2, 1, 2, 2, 2, 3} --> {2, 1, 2, 2, 3}
+     * @param array
+     * @return
+     */
+    public int[] arrayDeduplicationVI (int[] array) {
+        /*
+            we can use two pointers
+            [0, s) all the characters kept
+            [s, f), characters, we don't care
+            [f, array.length - 1] all the characters to be explored
+
+            we traverse using fast pointer
+            if (slow >= 2 && array[fast] == array[slow - 1] && array[fast] == array[slow - 2]) then we skip
+         */
+        int slow = 0;
+        int fast = 0;
+        while (fast < array.length) {
+            if (slow >= 2 && array[fast] == array[slow - 1] && array[fast] == array[slow - 2]) {
+                fast++;
+            } else {
+                array[slow++] = array[fast++];
+            }
+        }
+        return Arrays.copyOf(array, slow);
+    }
 }
