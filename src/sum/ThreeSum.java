@@ -37,7 +37,7 @@ public class ThreeSum {
         List<List<Integer>> res = new ArrayList<>();
         for (int j = 2; j < array.length; j++) {
             //make sure j always points to the last consecutive repeated elements
-            while (j < array.length && array[j] == array[j + 1]) {
+            while (j < array.length - 1 && array[j] == array[j + 1]) {
                 j++;
             }
             Map<Integer, Boolean> map = new HashMap<>();

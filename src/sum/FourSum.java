@@ -70,6 +70,33 @@ public class FourSum {
             }
         }
         return false;
+        /*
+            we can combine above algorithm into one pass
+            public boolean exist(int[] array, int target) {
+                Map<Integer, Pair> map = new HashMap<>();
+                for (int j = 1; j < array.length; j++) {
+                  for (int i = 0; i < j; i++) {
+                    int twoSum = array[i] + array[j];
+                    if (map.containsKey(target - twoSum) && i > map.get(target - twoSum).j) {
+                       return true;
+                    }
+                    if (!map.containsKey(array[i] + array[j])) {
+                      map.put(array[i] + array[j], new Pair(i, j));
+                    }
+                  }
+                }
+                return false;
+              }
+
+              class Pair {
+                int i;
+                int j;
+                public Pair(int i, int j) {
+                  this.i = i;
+                  this.j = j;
+                }
+              }
+         */
     }
 
     class Pair {
