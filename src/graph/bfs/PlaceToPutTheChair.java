@@ -5,27 +5,131 @@ import java.util.*;
 public class PlaceToPutTheChair {
 
     /**
-     * Given a gym with k pieces of equipment and some obstacles.  We bought a chair and wanted to put this chair into the gym such that  the sum of the shortest path cost from the chair to the k pieces of equipment is minimal. The gym is represented by a char matrix, ‘E’ denotes a cell with equipment, ‘O’ denotes a cell with an obstacle, 'C' denotes a cell without any equipment or obstacle. You can only move to neighboring cells (left, right, up, down) if the neighboring cell is not an obstacle. The cost of moving from one cell to its neighbor is 1. You can not put the chair on a cell with equipment or obstacle.
-     *
+     * Given a gym with k pieces of equipment without any obstacles.  Let’s say we bought a chair and wanted to put this chair into the gym such that the sum of the shortest path cost from the chair to the k pieces of equipment is minimal. The gym is represented by a char matrix, ‘E’ denotes a cell with equipment, ' ' denotes a cell without equipment. The cost of moving from one cell to its neighbor(left, right, up, down) is 1. You can put chair on any cell in the gym.
+     * <p>
      * Assumptions
+     * There is at least one equipment in the gym
+     * The given gym is represented by a char matrix of size M * N, where M >= 1 and N >= 1, it is guaranteed to be not null
+     * <p>
+     * Exmample
+     * { { 'E', ' ', ' ' },
+     * <p>
+     * {  ' ', 'E',  ' ' },
+     * <p>
+     * {  ' ',  ' ', 'E' } }
+     * <p>
+     * we should put the chair at (1, 1), so that the sum of cost from the chair to the two equipments is 2 + 0 + 2 = 4, which is minimal.
      *
+     * @param gym
+     * @return
+     */
+    public List<Integer> placeToPurChairI(char[][] gym) {
+        /*
+            High level idea
+            We can start from each equipment and calculate the shortest distance from that equipment to each position
+            Then we can add the shortest distance together for each position, then we can get the shortest sum distance from each position to all equipments
+
+            At last we traverse the cost map and find the smallest element.
+
+            TC: k*m*n
+            SC: m * n
+         */
+
+        int[][] distance = new int[gym.length][gym[0].length];
+
+        for (int i = 0; i < gym.length; i++) {
+            for (int j = 0; j < gym[0].length; j++) {
+                if (gym[i][j] == 'E') {
+                    bfs(gym, distance, i, j);
+                }
+            }
+        }
+        return findShortestDistancePlace(distance);
+
+    }
+
+    private List<Integer> findShortestDistancePlace(int[][] distance) {
+        int shortest = distance[0][0];
+        List<Integer> res = new ArrayList<>();
+        res.add(0);
+        res.add(0);
+        for (int i = 0; i < distance.length; i++) {
+            for (int j = 0; j < distance[0].length; j++) {
+                if (distance[i][j] < shortest) {
+                    shortest = distance[i][j];
+                    res.set(0, i);
+                    res.set(1, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    private void bfs(char[][] gym, int[][] distance, int i, int j) {
+        boolean[][] visited = new boolean[gym.length][gym[0].length];
+        visited[i][j] = true;
+//        distance[i][j] += 0;
+        Queue<Pair> queue = new ArrayDeque<>();
+        queue.offer(new Pair(i, j));
+        int cost = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size-- != 0) {
+                Pair currPair = queue.poll();
+                int currX = currPair.i;
+                int currY = currPair.j;
+                for (int[] dir : DIRS) {
+                    int neiX = currX + dir[0];
+                    int neiY = currY + dir[1];
+                    if (validXY(gym, visited, neiX, neiY)) {
+                        visited[neiX][neiY] = true;
+                        distance[neiX][neiY] += cost + 1;
+                        queue.offer(new Pair(neiX, neiY));
+                    }
+                }
+            }
+            cost++;
+        }
+
+    }
+
+    private boolean validXY(char[][] gym, boolean[][] visited, int i, int j) {
+        return i >= 0 && i < gym.length && j >= 0 && j < gym[0].length && !visited[i][j];
+    }
+
+    class Pair {
+        int i;
+        int j;
+
+        public Pair(int i, int j) {
+            this.i = i;
+            this.j = j;
+        }
+    }
+
+    /**
+     * Given a gym with k pieces of equipment and some obstacles.  We bought a chair and wanted to put this chair into the gym such that  the sum of the shortest path cost from the chair to the k pieces of equipment is minimal. The gym is represented by a char matrix, ‘E’ denotes a cell with equipment, ‘O’ denotes a cell with an obstacle, 'C' denotes a cell without any equipment or obstacle. You can only move to neighboring cells (left, right, up, down) if the neighboring cell is not an obstacle. The cost of moving from one cell to its neighbor is 1. You can not put the chair on a cell with equipment or obstacle.
+     * <p>
+     * Assumptions
+     * <p>
      * There is at least one equipment in the gym
      * The given gym is represented by a char matrix of size M * N, where M >= 1 and N >= 1, it is guaranteed to be not null
      * It is guaranteed that each 'C' cell is reachable from all 'E' cells.
      * If there does not exist such place to put the chair, just return {-1, -1}
      * Examples
-     *
+     * <p>
      * { { 'E', 'O', 'C' },
-     *
-     *   {  'C', 'E',  'C' },
-     *
-     *   {  'C',  'C',  'C' } }
-     *
+     * <p>
+     * {  'C', 'E',  'C' },
+     * <p>
+     * {  'C',  'C',  'C' } }
+     * <p>
      * we should put the chair at (1, 0), so that the sum of cost from the chair to the two equipment is 1 + 1 = 2, which is minimal.
+     *
      * @param gym
      * @return The coordinate of the chair
      */
-    public List<Integer> placeToPurChair(char[][] gym) {
+    public List<Integer> placeToPurChairII(char[][] gym) {
 
         /*
             for each open position we can find its sum of distance to all 'E'
@@ -46,7 +150,7 @@ public class PlaceToPutTheChair {
             }
         }
 
-        int[] res = new int[] {-1, -1};
+        int[] res = new int[]{-1, -1};
         int globalMin = Integer.MAX_VALUE;
         for (int i = 0; i < gym.length; i++) {
             for (int j = 0; j < gym[0].length; j++) {
@@ -63,6 +167,7 @@ public class PlaceToPutTheChair {
     }
 
     public static final int[][] DIRS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
     private int findDistance(char[][] gym, int i, int j) {
         /*
             data structure for the BFS:
@@ -77,7 +182,7 @@ public class PlaceToPutTheChair {
         visited[i][j] = true;
         int result = 0;
         int level = 0; //keeps the level of the traversal, it also indicates the current steps
-        while(!queue.isEmpty()) {
+        while (!queue.isEmpty()) {
             int size = queue.size();
             for (int k = 0; k < size; k++) {
                 int[] curr = queue.poll();
@@ -106,7 +211,7 @@ public class PlaceToPutTheChair {
     public static void main(String[] args) {
         char[][] gym = {{'C', 'C', 'E', 'O', 'C'}, {'C', 'C', 'O', 'C', 'E'}, {'C', 'C', 'E', 'E', 'C'}, {'C', 'O', 'C', 'E', 'E'}, {'C', 'C', 'O', 'C', 'C'}};
         PlaceToPutTheChair placeToPutTheChair = new PlaceToPutTheChair();
-        System.out.println(placeToPutTheChair.placeToPurChair(gym));
+        System.out.println(placeToPutTheChair.placeToPurChairII(gym));
     }
 
 
