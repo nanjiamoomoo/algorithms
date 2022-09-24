@@ -47,6 +47,26 @@ public class StringReplace {
             fromIndex = patternStart + pattern.length();
         }
 
+        /*
+             or
+            if (input.length() < source.length()) {
+              return input;
+            }
+
+            int begin = 0;
+            StringBuilder sb = new StringBuilder();
+            while (begin <= input.length() - source.length()) {
+               int firstOccur = input.indexOf(source, begin);
+               if (firstOccur == -1) {
+                 break;
+               }
+               sb.append(input.substring(begin, firstOccur)).append(target);
+               begin = firstOccur + source.length();
+            }
+            sb.append(input.substring(begin));
+            return sb.toString();
+         */
+
        return sb.toString();
     }
 }

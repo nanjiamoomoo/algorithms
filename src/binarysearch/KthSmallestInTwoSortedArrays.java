@@ -84,10 +84,11 @@ public class KthSmallestInTwoSortedArrays {
 
     private int findKthSmallest(int[] one, int oneLeft, int[] two, int twoLeft, int k) {
         //base case
-        if (oneLeft >= one.length) {
+        // you can use oneLeft >= one.length as well. But it is guaranteed that oneLeft == one.length if it is out of bound
+        if (oneLeft == one.length) {
             return two[twoLeft + k - 1];
         }
-        if (twoLeft >= two.length) {
+        if (twoLeft == two.length) {
             return one[oneLeft + k - 1];
         }
         if (k == 1) {

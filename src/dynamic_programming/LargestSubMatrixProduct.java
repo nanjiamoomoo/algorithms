@@ -25,33 +25,44 @@ public class LargestSubMatrixProduct {
      */
     public double largestProduct(double[][] matrix) {
         /*
-            assume a matrix with left-top vertex coordinate <k, l>
-                                 right -bottom vertex coordinate <i, j>
-            if we have an 2D array product[i][j] represents the area define by the top left vertex <0, 0> and bottom right vertex<i, j>
-            the area defined by the <k, l> and <i, j> = product[i][j] * product[k][l] / product[k][j] / product[i][l]
+
+                dp[i][j][l] represents the product of elements between row i ~ row j on column j
+
+                then we can limit top row and bottom row and find the max sub matrix that has the largest product
+
+               TC: O(n ^ 4)
+               SC: O(n ^ 3)
+
          */
-//        double[][] product = new double[matrix.length][matrix[0].length];
-//        product[0][0] = matrix[0][0];
-//        double largest = matrix[0][0];
-//        for (int j = 1; j < matrix[0].length; j++) {
-//            product[0][j] = product[0][j - 1] * matrix[0][j];
-//            largest = Math.max(largest, product[0][j]);
-//        }
-//        for (int i = 1; i < matrix.length; i++) {
-//            product[i][0] = product[i - 1][0] * matrix[i][0];
-//            largest = Math.max(largest, product[i][0]);
-//        }
-//        for (int i = 1; i < matrix.length; i++) {
-//            for (int j = 1; j < matrix[0].length; j++) {
-//                product[i][j] = product[i - 1][j] * product[i][j - 1] * matrix[i][j] / product[i - 1][j - 1];
-//                for (int k = 0; k < i; k++) {
-//                    for (int l = 0; l < j; l++) {
-//                        largest = Math.max(largest, product[i][j] * product[k][l] / (product[k][j] * product[i][l]));
-//                    }
-//                }
-//            }
-//        }
-//        return largest;
-        return -1;
+
+        double[][][] productUpToBot = new double[matrix.length][matrix.length][matrix[0].length];
+        for (int l = 0; l < matrix[0].length; l++) {
+            for (int j = 0; j < matrix.length; j++) {
+                for (int i = j; i >= 0; i--) {
+                    if (i == j) {
+                        productUpToBot[i][j][l] = matrix[i][l];
+                    } else {
+                        productUpToBot[i][j][l] = productUpToBot[i + 1][j][l] * matrix[i][l];
+                    }
+                }
+            }
+        }
+
+        double largest = matrix[0][0];
+        for (int top = 0; top < matrix.length; top++) {
+            for (int bot = top; bot < matrix.length; bot++) {
+                double currLargest = productUpToBot[top][bot][0];
+                for (int l = 1; l < matrix[0].length; l++) {
+                    double previousProduct = 1;
+                    for (int k = l; k >= 0; k--) {
+                        double currProduct = previousProduct * productUpToBot[top][bot][k];
+                        currLargest = Math.max(currLargest, currProduct);
+                        previousProduct = currProduct;
+                    }
+                }
+                largest = Math.max(largest, currLargest);
+            }
+        }
+        return largest;
     }
 }
