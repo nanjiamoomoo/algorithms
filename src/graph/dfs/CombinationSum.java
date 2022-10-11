@@ -12,7 +12,7 @@ public class CombinationSum {
      *
      * Elements in a combination (a1, a2, … , ak) must be in non-descending order.
      *
-     * The solution set must not contain duplicate combinations.\
+     * The solution set must not contain duplicate combinations.
      *
      * Assumption: if there is no such combination, return empty set
      *
