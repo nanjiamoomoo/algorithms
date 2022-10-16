@@ -1,6 +1,9 @@
 package AmazonQuestions;
 
-public class IntegerToRoman {
+import java.util.HashMap;
+import java.util.Map;
+
+public class IntegerAndRoman {
 
     /**
      * Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
@@ -123,5 +126,55 @@ public class IntegerToRoman {
         return sb.toString();
 
 
+    }
+
+    /**
+     * Convert Roman numeral to Integer
+     * Input: s = "III"
+     * Output: 3
+     * Explanation: III = 3.
+     * @param s
+     * @return
+     */
+    public int RomanToInteger(String s) {
+        /*
+                I V X L C D M
+
+              1000 900 500 400 100 90 50 40 10 9  5  4  1
+              M     CM  D   CD  C  XC  L XL X  IX V  IV I
+
+              When we traverse a string, we check two digits
+              if s.charAt(i + 1) has a is bigger than s.charAt(i), then the two digits are one number, such CM, XC
+              otherwise, we count them individually
+
+              e.g.
+              MMCMXCVIII
+              1000 + 1000 + 900 + 90 + 5 + 1 + 1 + 1 = 2998
+
+              Data Structure: Map<Character, Integer> map to map each roman numeral to integer
+         */
+        Map<Character, Integer> map = new HashMap<>();
+        initMap(map);
+        int res = 0;
+        int i = 0;
+        while (i < s.length()) {
+            if (i < s.length() - 1 && map.get(s.charAt(i + 1)) > map.get(s.charAt(i))) {
+                res += map.get(s.charAt(i + 1)) - map.get(s.charAt(i));
+                i += 2;
+                continue;
+            }
+            res += map.get(s.charAt(i));
+            i += 1;
+        }
+        return res;
+    }
+    private void initMap(Map<Character, Integer> map) {
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
     }
 }

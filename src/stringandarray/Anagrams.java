@@ -106,4 +106,47 @@ public class Anagrams {
         return res;
     }
 
+    /**
+     *Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+     *
+     * An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+     * strs[i] consists of lowercase English letters.
+     * Example 1:
+     *
+     * Input: strs = ["eat","tea","tan","ate","nat","bat"]
+     * Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+     * @param strs
+     * @return
+     */
+    public List<List<String>> groupAnagrams(String[] strs) {
+        /*
+            the question converts to how to uniquely identify a group anagrams
+            we can use an array of size 26, each position represents the count of specific characters
+            Then we traverse each string, and generate the array for each string
+
+            once the array is generated, we convert the array into another string to uniquely identify a group
+            such {1, 2, 3, 0, 0...} abbccc...
+            then this converts to 123
+         */
+        Map<String, List> map = new HashMap<>();
+        for (String s : strs) {
+            int[] array = new int[26];
+            for (char c : s.toCharArray()) {
+                array[c - 'a']++;
+            }
+            StringBuilder sb = new StringBuilder();
+            for (int num : array) {
+                sb.append((char)(num + '0'));
+            }
+            map.putIfAbsent(sb.toString(), new ArrayList<String>());
+            map.get(sb.toString()).add(s);
+        }
+        return new ArrayList<>(map.values());
+
+        /*
+        TC: O(NK)
+        SC: O(NK)
+         */
+    }
+
 }

@@ -87,6 +87,33 @@ public class ThreeSum {
              since the array has been sorted, we can use two pointer to solve the problem
                TC: O(n ^ 2)
                 SC: O(1)
+                 Arrays.sort(nums);
+        int i = 2;
+        List<List<Integer>> res = new ArrayList<>();
+        while (i < nums.length) {
+            while (i < nums.length - 1 && nums[i + 1] == nums[i]) {
+                i++;
+            }
+            int left = 0;
+            int right = i - 1;
+            while (left < right) {
+                int twoSum = nums[left] + nums[right];
+                if (twoSum < -nums[i]) {
+                    left++;
+                } else if (twoSum > -nums[i]) {
+                    right--;
+                } else {
+                    res.add(Arrays.asList(nums[left], nums[right], nums[i]));
+                    while (left < right && nums[left + 1] == nums[left]) {
+                        left++;
+                    }
+                    left++;
+                    right--;
+                }
+            }
+            i++;
+        }
+        return res;
          */
     }
 }
