@@ -23,7 +23,7 @@ public class ArrayHopper {
      * @param index
      * @return
      */
-    public int minJumpII(int[] array, int index) {
+    public static int minJumpII(int[] array, int index) {
          /*
              method 1: BFS
              data structure: queue
@@ -63,7 +63,12 @@ public class ArrayHopper {
         return -1;
     }
 
-    private boolean validIndex(boolean[] visited, int index) {
+    private static boolean validIndex(boolean[] visited, int index) {
         return index >= 0 && index < visited.length && !visited[index];
+    }
+
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 6, 7, 8, 9, 10};
+        System.out.println(minJumpII(array, 3));
     }
 }

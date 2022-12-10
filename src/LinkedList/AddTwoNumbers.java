@@ -2,6 +2,9 @@ package LinkedList;
 
 import merge.ListNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AddTwoNumbers {
 
     /**
@@ -51,4 +54,9 @@ public class AddTwoNumbers {
         }
         return dummy.next;
     }
+
+    public static void main(String[] args) {
+        List<String> lists = new ArrayList();
+    }
+
 }

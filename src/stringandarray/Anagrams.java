@@ -141,7 +141,7 @@ public class Anagrams {
             map.putIfAbsent(sb.toString(), new ArrayList<String>());
             map.get(sb.toString()).add(s);
         }
-        return new ArrayList<>(map.values());
+        return new ArrayList<>((List)map.values());
 
         /*
         TC: O(NK)
